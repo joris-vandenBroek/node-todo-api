@@ -13,7 +13,7 @@ var UserSchema = new mongoose.Schema({
     unique: true,
     validate: {
       validator: validator.isEmail,
-      message: `{VALUE} is not a valif email`
+      message: `{VALUE} is not a valid email`
     }
   },
   password: {
@@ -65,7 +65,7 @@ UserSchema.statics.findByToken = function (token) {
 };
 
 UserSchema.pre('save', function (next) {
-  user = this;
+  var user = this;
   if (user.isModified('password')){
     bcrypt.genSalt(10, (err, salt) => {
        bcrypt.hash(user.password, salt, (err, hash) => {
